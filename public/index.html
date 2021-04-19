@@ -4,8 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="<%= BASE_URL %>takeout.ico">
+    <title>智能外卖取餐柜管理系统</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      .el-table th.gutter{
+        display: table-cell!important;
+      }
+    </style>
   </head>
   <body>
     <noscript>
@@ -13,5 +21,7 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <!-- 定位城市的百度地图api ak=密钥 -->
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=K0BsXa2eYq6dh4CIgmNNg1CkLv5NG0TP"></script>
   </body>
 </html>
