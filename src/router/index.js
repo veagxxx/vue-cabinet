@@ -58,11 +58,31 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     let token = sessionStorage.getItem('token');
+    // 判断是否有 token
     if (!token) {
       Message.error({message: '未登录，请先登录'});
       next('/login');
     } else {
-      next();
+      // 判断登录时长，是否过期
+      let loginTime = sessionStorage.getItem('loginTime');
+      let currentTime = new Date();
+      if (typeof loginTime === 'string') {
+        loginTime = new Date(Date.parse(loginTime.replace(/-g/, "/")));
+      }
+      let total = (currentTime.getTime() - loginTime.getTime()) / 1000;
+      // 获取小时
+      let loginDuration = parseInt(total / 3600);
+      if (loginDuration >= 2) {
+        Message.warning({
+          message: '登录已过期，请重新登录', 
+          duration: 1500, 
+          onClose() {
+            next('/login');
+          }
+        });
+      } else {
+        next();
+      }
     }
   }
 });

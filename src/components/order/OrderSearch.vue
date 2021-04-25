@@ -96,10 +96,10 @@ export default {
         user: {
           phone: ''
         },
-        orderTime: '',
-        orderStatus: '',
+        orderTime: null,
+        orderStatus: null,
         orderCode: '',
-        orderPayMode: ''
+        orderPayMode: null
       },
       statusOptions: [
         {id: 1, status: '待取餐'},
@@ -114,6 +114,7 @@ export default {
       payways: [
         {payId: 1, payway: '微信'},
         {payId: 2, payway: '支付宝'},
+        {payId: 3, payway: '一卡通'},
       ]
     }
   },

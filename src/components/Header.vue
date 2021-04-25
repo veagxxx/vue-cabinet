@@ -50,18 +50,24 @@
         </el-dropdown>
       </div>
     </div>
+    <PersonalDialog 
+    :personalDialog="{personalDialog}" 
+    @handleCloseDialog="handleCloseDialog">
+    </PersonalDialog>
   </div>
 </template>
 
 <script>
-import Dropdown from '@/components/index/Dropdown.vue' 
+import Dropdown from '@/components/index/Dropdown.vue';
+import PersonalDialog from './PersonalDialog.vue';
 export default {
-  components: {Dropdown},
+  components: {Dropdown, PersonalDialog},
   props: ['isCollapse'],
   data() {
     return {
       message: 2,
       dropShow: false,
+      personalDialog: false,
     }
   },
   mounted() {
@@ -84,7 +90,7 @@ export default {
     },
     // 个人资料
     displayPersonalMsg() {
-
+      this.personalDialog = true;
     },
     // 处理下拉菜单
     handleCommand(value) {
@@ -96,6 +102,9 @@ export default {
         // console.log(value);
         this.displayPersonalMsg();
       }
+    },
+    handleCloseDialog() {
+      this.personalDialog = false;
     },
     // 处理语言选择
     handleLanguage(value) {

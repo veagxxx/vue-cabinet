@@ -1,11 +1,15 @@
 <template>
   <el-dropdown>
     <el-button type="success" size="small">
-      导出Excel<i class="el-icon-arrow-down el-icon--right"></i>
+      {{$t('main.export')}}Excel<i class="el-icon-arrow-down el-icon--right"></i>
     </el-button>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item @click.native="exportSelected2Excel">导出选中</el-dropdown-item>
-      <el-dropdown-item @click.native="exportCurrentPage2Excel">导出当前页</el-dropdown-item>
+      <el-dropdown-item @click.native="exportSelected2Excel">
+        {{$t('main.exportSelected')}}
+      </el-dropdown-item>
+      <el-dropdown-item @click.native="exportCurrentPage2Excel">
+        {{$t('main.exportCurrentPage')}}
+      </el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
 </template>

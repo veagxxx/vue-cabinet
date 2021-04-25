@@ -24,7 +24,7 @@
           </el-pagination>
         </el-col>
         <el-col :span="8" class="search">
-          <el-input size="small" v-model="queryInfo.keywords" placeholder="请输入内容" class="input-with-select" clearable @clear="handleClear()">
+          <el-input size="small" v-model="queryInfo.keywords" :placeholder="$t('main.user.placeholder')" class="input-with-select" clearable @clear="handleClear()">
             <el-button @click="searchBykeywords(queryInfo.keywords)" slot="append" icon="el-icon-search"></el-button>
           </el-input>   
         </el-col>
@@ -98,6 +98,7 @@
 import EditUserDialog from '@/components/user/EditUserDialog.vue';
 import Export2Excel from '@/components/user/Export2Excel.vue';
 export default {
+  inject: ['reload'],
   components: {EditUserDialog, Export2Excel},
   data() {
     return {
@@ -124,9 +125,10 @@ export default {
   },
   methods: {
     // 获取所有用户
-    getAllUsers() {
+    async getAllUsers() {
       this.loading = true;
-      this.$http.get('/user/list', {params: this.queryInfo}).then((result) => {
+      await this.$http.get('/user/list', {params: this.queryInfo})
+      .then((result) => {
         // console.log(result);
         this.userList = result.list;
         this.total = result.total;
@@ -171,6 +173,7 @@ export default {
     // 关闭编辑弹框
     submitEditAndClose() {
       this.editDialogVisible = false;
+      this.reload();
     },
     // 根据 id 删除用户
     deleteUserById(id) {

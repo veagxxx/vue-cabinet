@@ -30,9 +30,19 @@
             <span v-show="orderDetailData[0].orderStatus === 1">
               取餐倒计时: {{countDownMin + '分钟'}}
             </span>
-            <el-button v-if="orderDetailData[0].orderStatus === 1" size="mini" type="primary"
-            @click="remindToPickUp">提醒取餐</el-button>
-            <el-button v-else-if="orderDetailData[0].orderStatus === 2" size="mini" type="primary" @click="finishOrder">完成订单</el-button>
+            <el-button 
+            v-if="orderDetailData[0].orderStatus === 1" 
+            size="mini" type="primary"
+            @click="remindToPickUp" 
+            icon="el-icon-message-solid">
+              提醒取餐
+            </el-button>
+            <el-button 
+            v-else-if="orderDetailData[0].orderStatus === 2" 
+            size="mini" type="primary"
+             @click="finishOrder">
+              完成订单
+            </el-button>
           </div>
         </el-alert>
         <span><i class="el-icon-notebook-2"></i>订单信息</span>
@@ -75,7 +85,18 @@
             </template>
           </el-table-column>
           <el-table-column align="center" label="取餐柜地点" prop="cabinet.cabinetPosition"></el-table-column>
-          <el-table-column align="center" label="取餐柜格号" prop="orderCabinetNumber"></el-table-column>
+          <el-table-column align="center" label="取餐柜格号" prop="orderCabinetNumber">
+            <template slot-scope="scope">
+              <el-tag type="primary">
+                {{
+                  scope.row.cabinet.cabinetNo + "-" + 
+                  (scope.row.orderCabinetNumber < 10 ? '0' + 
+                  scope.row.orderCabinetNumber : 
+                  scope.row.orderCabinetNumber)
+                }}
+              </el-tag>
+            </template>
+          </el-table-column>
             <el-table-column align="center" label="模式" prop="cabinetMode.modeName">
               <template slot-scope="scope">
                 <el-tag :type="scope.row.cabinetMode.modeName === '正常模式' ? 'info' : (scope.row.cabinetMode.modeName === '制热' ? 'danger' : 'primary')">
@@ -98,6 +119,16 @@
               {{scope.row.autoConfirmDay + '天'}}
             </template>
           </el-table-column>
+        </el-table>
+        <span><i class="el-icon-price-tag"></i>费用信息</span>
+        <el-table :data="[]"
+        class="price-table"
+        :header-cell-style="{background:'#eef1f6',color:'#606266'}"
+        size="medium" border>
+          <el-table-column align="center" label="订单总价"></el-table-column>
+          <el-table-column align="center" label="活动优惠"></el-table-column>
+          <el-table-column align="center" label="积分抵扣"></el-table-column>
+          <el-table-column align="center" label="实际应付"></el-table-column>
         </el-table>
         <span><i class="el-icon-collection-tag"></i>操作信息</span>
         <el-table :data="operationData"
@@ -175,15 +206,15 @@ export default {
       // startTime = new Date(startTime.replace(/-/g,"/"));
       pickTime = new Date(pickTime.replace(/-/g,"/"));
        // 获取分钟
-      this.countDownMin = (pickTime - startTime) / (1000 * 60) <= 0 ? 0 : (pickTime - startTime) / (1000 * 60)
+      this.countDownMin = parseInt((pickTime - startTime) / (1000 * 60) <= 0 ? 0 : (pickTime - startTime) / (1000 * 60));
       console.log(this.countDownMin);
-      if (this.countDownMin === 15) {
-        this.$http.get('/order/remind/' + orderId).then((result) => {
+      // if (this.countDownMin === 15) {
+      //   this.$http.get('/order/remind/' + orderId).then((result) => {
           
-        }).catch((err) => {
+      //   }).catch((err) => {
           
-        });
-      }
+      //   });
+      // }
     },
     // 订单状态
     calcOrderStatus: function(value) {
@@ -333,7 +364,7 @@ export default {
     font-size: 16px;
     color: tomato;
   }
-  .el-alert,.order-second-tb {
+  .el-alert,.order-second-tb,.price-table {
     margin-bottom: 20px;
   }
   .order-first-tb,.operate-table {

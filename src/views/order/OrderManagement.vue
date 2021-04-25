@@ -20,18 +20,32 @@
           </OrderSearch>
         </el-collapse-item>
       </el-collapse>
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handlePageChange"
-        :current-page="pageNum"
-        :page-sizes="[1, 5, 10, 12]"
-        :page-size="pageSize"
-        :pager-count="5"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="orderTotal">
-      </el-pagination>
+      <div class="table-top">
+        <div class="page-btn">
+          <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handlePageChange"
+            :current-page="pageNum"
+            :page-sizes="[1, 5, 10, 12]"
+            :page-size="pageSize"
+            :pager-count="5"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="orderTotal">
+          </el-pagination>
+          <el-button icon="el-icon-refresh" size="small" @click="refresh"></el-button>
+         </div>
+        <el-button type="success" size="small" @click="handleAdd">
+          {{$t('main.order.manualAdd')}}
+        </el-button>
+      </div>
+      <OrderAdd 
+      :addDialogShow="addDialogShow" 
+      @handleClose="handleCloseAddDialog"
+      @handleSuccess="handleSuccess">
+      </OrderAdd>
       <el-table border :data="orderList"
+      :default-sort = "{prop: 'orderTime', order: 'descending'}"
       v-loading="loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
@@ -44,7 +58,7 @@
             {{scope.row.user.phone}}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="存放时间" prop="orderTime" width="120">
+        <el-table-column align="center" sortable label="存放时间" prop="orderTime" width="120">
           <template slot-scope="scope">
              <i class="el-icon-time"></i>
             {{scope.row.orderTime | TimeFormat}}
@@ -97,8 +111,10 @@
 
 <script>
 import OrderSearch from '@/components/order/OrderSearch.vue';
+import OrderAdd from '@/components/order/OrderAdd.vue';
 export default {
-  components: {OrderSearch},
+  inject: ['reload'],
+  components: {OrderSearch, OrderAdd},
   data() {
     return {
       orderList: [],
@@ -114,7 +130,8 @@ export default {
         orderStatus: '',
         orderCode: '',
         orderPayMode: ''
-      }
+      },
+      addDialogShow: false,
     }
   },
   mounted() {
@@ -164,6 +181,7 @@ export default {
       this.pageNum = value;
       this.getAllOrders();
     },
+    // 获取订单状态
     calcOrderStatus: function(value) {
       if (value === 1) {
         return '待取餐';
@@ -175,6 +193,7 @@ export default {
         return '已完成';
       }
     },
+    // 查看详情
     toDetail(data) {
       // 直接把对象或者使用路由传参方式传递时，当页面刷新时数据会丢失，
       // 传递前转成字符串，字符串传递页面刷新时数据不会丢失，页面获取时再转成对象
@@ -227,6 +246,22 @@ export default {
       }).catch((err) => {
         return err;
       });
+    },
+    refresh() {
+      this.reload();
+    },
+    // 手动添加订单
+    handleAdd() {
+      this.addDialogShow = true;
+    },
+    // 关闭对话框
+    handleCloseAddDialog() {
+      this.addDialogShow = false;
+    },
+    // 添加成功关闭对话框
+    handleSuccess() {
+      this.reload();
+      this.addDialogShow = false;
     }
   },
   computed: {
@@ -248,7 +283,19 @@ export default {
   .search-collapse>>>.el-collapse-item__content {
     padding-bottom: 0px;
   }
-  .el-pagination {
-    margin-top: 10px;
+  .table-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .page-btn {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .page-btn .el-button {
+    font-size: 14px;
+    margin-left: 15px;
   }
 </style>

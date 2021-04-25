@@ -71,6 +71,7 @@
 <script>
 export default {
   props: ['addDialog'],
+  name: 'AddDialog',
   data() {
     const checkImg = (rule, value, callback) => {
       if (this.file === '') {

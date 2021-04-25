@@ -19,7 +19,16 @@
           :rules="addUserFormRules"
           :status-icon="true" ref="addUserFormRef" label-width="100px">
             <el-form-item label="默认头像：" prop="avatar">
-              <el-avatar :src="addUserForm.avatar"></el-avatar>
+              <el-upload
+                name="avatarFile"
+                class="avatar-uploader"
+                action="http://localhost:8090/user/avatar"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+                <el-avatar :src="addUserForm.avatar"></el-avatar>
+                <!-- <img :src="addUserForm.avatar" class="avatar-img" alt="头像"> -->
+              </el-upload>
             </el-form-item>
             <el-form-item label="用户名：" prop="username">
               <el-input v-model="addUserForm.username" clearable></el-input>
@@ -49,10 +58,10 @@
               </el-radio-group>
             </el-form-item>
              <el-form-item>
-              <el-button type="primary" @click="insertUser('addUserFormRef')">
+              <el-button type="primary" size="small" @click="insertUser('addUserFormRef')">
                 {{$t('main.add')}}
               </el-button>
-              <el-button type="primary" @click="resetForm('addUserFormRef')">
+              <el-button type="primary" size="small" @click="resetForm('addUserFormRef')">
                 {{$t('main.reset')}}
               </el-button>
             </el-form-item>
@@ -68,15 +77,15 @@
             :limit="3"
             accept=".xlsx, .xls"
             :auto-upload="false">
-            <el-button slot="trigger" size="small" type="success" icon="el-icon-upload">
+            <el-button slot="trigger" size="small" type="success" icon="el-icon-folder-add">
               {{$t('main.select')}}
             </el-button>
             <ExportTemplate></ExportTemplate>
             <div slot="tip" class="el-upload__tip">
-              只能上传.xls/.xlsx文件，您可以先下载模板，确定后点击'一键导入'即可导入数据
+              只能上传.xls/.xlsx文件，您可以先下载模板，选择文件后点击'一键导入'即可导入数据
             </div>
           </el-upload>
-          <el-button class="import" size="small" type="success" @click="importAll">
+          <el-button class="import" size="small" type="success" icon="el-icon-upload" @click="importAll">
             {{$t('main.import')}}
           </el-button>
         </el-tab-pane>
@@ -153,6 +162,24 @@ export default {
   methods: {
     handleAddCancel() {
       this.$emit('handleAddCancel');
+    },
+    // 选择头像成功
+    handleAvatarSuccess(res, file) {
+      this.addUserForm.avatar = res.data;
+      // console.log(file);
+    },
+    // 头像上传之前
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg' || 'image/png';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG/PNG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
     },
     // 插入用户
     insertUser(addUserFormRef) {
@@ -307,6 +334,12 @@ export default {
     // 导入excel的全部数据到后端
     importAll() {
       // console.log(this.fileList);
+      if (this.fileList.length === 0) {
+        return this.$message({
+          type: 'warning',
+          message: '未选择导入文件'
+        });
+      }
       for (let index = 0; index < this.fileList.length; index++) {
         this.$http.post('/user/insert', this.fileList[index]).then((result) => {
           // console.log(result);

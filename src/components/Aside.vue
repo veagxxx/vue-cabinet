@@ -12,17 +12,17 @@
     <!-- 用户反馈 -->
     <el-menu-item index="/index">
       <i class="el-icon-s-home"></i>
-      <span>首页</span>
+      <span>{{$t('aside.index')}}</span>
     </el-menu-item>
     <el-submenu index="2">
       <template slot="title">               
         <i class="el-icon-s-data"></i>
-        <span slot="title">业务统计</span>
+        <span slot="title">{{$t('aside.statistics.title')}}</span>
       </template>           
       <el-menu-item index="/charts">
         <template>
           <i class="el-icon-pie-chart"></i>
-          <span>数据图表</span>
+          <span>{{$t('aside.statistics.chart')}}</span>
         </template>
       </el-menu-item>
     </el-submenu>
@@ -30,18 +30,18 @@
     <el-submenu index="3">
       <template slot="title">
         <i class="el-icon-s-custom"></i>
-        <span slot="title">用户模块</span>
+        <span slot="title">{{$t('aside.userModular.title')}}</span>
       </template>
       <el-menu-item index="/user-management">
         <template>
           <i class="el-icon-s-custom"></i>
-          <span>用户管理</span>
+          <span>{{$t('aside.userModular.management')}}</span>
         </template>
       </el-menu-item>
       <el-menu-item index="/user-add">
         <template>
           <i class="el-icon-circle-plus"></i>
-          <span>添加用户</span>
+          <span>{{$t('aside.userModular.add')}}</span>
         </template>
       </el-menu-item>
     </el-submenu>
@@ -49,18 +49,18 @@
     <el-submenu index="4">
       <template slot="title">               
         <i class="el-icon-notebook-2"></i>
-        <span slot="title">订单模块</span>
+        <span slot="title">{{$t('aside.orderModular.title')}}</span>
       </template>           
       <el-menu-item index="/order-management">
         <template>
           <i class="el-icon-notebook-1"></i>
-          <span>订单管理</span>
+          <span>{{$t('aside.orderModular.management')}}</span>
         </template>
       </el-menu-item>
       <el-menu-item index="/order-setting">
         <template>
           <i class="el-icon-s-promotion"></i>
-          <span>订单设置</span>
+          <span>{{$t('aside.orderModular.setting')}}</span>
         </template>
       </el-menu-item>
     </el-submenu>
@@ -68,12 +68,12 @@
     <el-submenu index="5">
       <template slot="title">               
         <i class="el-icon-coin"></i>
-        <span slot="title">产品模块</span>
+        <span slot="title">{{$t('aside.productModular.title')}}</span>
       </template>           
       <el-menu-item index="/pro-management">
         <template>
-          <i class="el-icon-s-home"></i>
-          <span>产品管理</span>
+          <i class="el-icon-s-platform"></i>
+          <span>{{$t('aside.productModular.management')}}</span>
         </template>
       </el-menu-item>
     </el-submenu>
@@ -81,12 +81,12 @@
     <el-submenu index="6">
       <template slot="title">               
         <i class="el-icon-s-tools"></i>
-        <span slot="title">系统设置</span>
+        <span slot="title">{{$t('aside.settingModular.title')}}</span>
       </template>           
       <el-menu-item index="/setting">
         <template>
           <i class="el-icon-setting"></i>
-          <span>基础设置</span>
+          <span>{{$t('aside.settingModular.base')}}</span>
         </template>
       </el-menu-item>
     </el-submenu>

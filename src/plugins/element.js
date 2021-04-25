@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {Button, Form, FormItem, Input, Container, Header, Main, Aside, Dropdown, DropdownItem, DropdownMenu, Menu, MenuItem, Submenu, MenuItemGroup, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Pagination, Dialog, Select, Tabs, TabPane, Switch, Radio, RadioButton, RadioGroup, DatePicker, Divider, Alert, Tooltip, Loading, Popover, PageHeader, Checkbox, CheckboxGroup, Option, Image, Message, MessageBox, Avatar, Tag, Upload, Scrollbar, Collapse, CollapseItem, Steps, Step, Backtop, ColorPicker, Slider, InputNumber, Calendar, Carousel, CarouselItem, Tree, Badge, InfiniteScroll} from 'element-ui';
+import {Button, Form, FormItem, Input, Container, Header, Main, Aside, Dropdown, DropdownItem, DropdownMenu, Menu, MenuItem, Submenu, MenuItemGroup, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Pagination, Dialog, Select, Tabs, TabPane, Switch, Radio, RadioButton, RadioGroup, DatePicker, Divider, Alert, Tooltip, Loading, Popover, PageHeader, Checkbox, CheckboxGroup, Option, Image, Message, MessageBox, Avatar, Tag, Upload, Scrollbar, Collapse, CollapseItem, Steps, Step, Backtop, ColorPicker, Slider, InputNumber, Calendar, Carousel, CarouselItem, Tree, Badge, InfiniteScroll, Transfer} from 'element-ui';
 
 Vue.use(Button);
 Vue.use(Form);
@@ -62,6 +62,7 @@ Vue.use(CarouselItem);
 Vue.use(Tree);
 Vue.use(Badge);
 Vue.use(InfiniteScroll);
+Vue.use(Transfer);
 // 对于 js 中使用的组件需要全局挂载.
 Vue.prototype.$message = Message;
 Vue.prototype.$messageBox = MessageBox;

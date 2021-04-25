@@ -13,21 +13,27 @@
           <el-divider></el-divider>
           <div class="login-last-time">
             <div class="user-info-list">
-              登录时间：
-              <span>{{loginTime | TimeFormat}}</span>
+              {{$t('main.index.loginTime')}}：
+              <div class="list-text">
+                <span>{{loginTime | TimeFormat}}</span>
+              </div>
             </div>
             <div class="user-info-list">
-              登录地点：
-              <span>{{loginCity}}</span>
+              {{$t('main.index.loginPosition')}}：
+              <div class="list-text">
+                <span><i class="el-icon-location"></i>{{loginCity}}</span>
+              </div>
             </div>
             <div class="user-info-list">
-              登录时长：
-              <span>{{`
-                ${loginDuration.hour < 10 ? '0' + loginDuration.hour : loginDuration.hour}小时
-                ${loginDuration.minute < 10 ? '0' + loginDuration.minute : loginDuration.minute}分钟
-                ${loginDuration.second < 10 ? '0' + loginDuration.second : loginDuration.second}秒
-                `}}
-              </span>
+              {{$t('main.index.loginDuration')}}：
+              <div class="list-text">
+                <span>{{`
+                  ${loginDuration.hour < 10 ? '0' + loginDuration.hour : loginDuration.hour}小时
+                  ${loginDuration.minute < 10 ? '0' + loginDuration.minute : loginDuration.minute}分钟
+                  ${loginDuration.second < 10 ? '0' + loginDuration.second : loginDuration.second}秒
+                  `}}
+                </span>
+              </div>
             </div>
           </div>
         </el-card>
@@ -35,7 +41,7 @@
       <el-col :span="16" class="agent">
         <el-scrollbar style="height:100%">
           <el-card>
-            <span>{{$t('main.agent')}}</span>
+            <span><i class="el-icon-link"></i>{{$t('main.index.agent')}}</span>
             <el-divider></el-divider>
             <ul class="agent-content">
               <li v-for="(item, index) in data">{{item}}</li>
@@ -45,7 +51,7 @@
       </el-col>
     </el-row>
     <el-card class="module">
-      <span><i class="el-icon-guide"></i>{{$t('main.modular')}}</span>
+      <span><i class="el-icon-guide"></i>{{$t('main.index.modular')}}</span>
       <el-divider></el-divider>
       <Modular></Modular>
     </el-card>
@@ -163,9 +169,12 @@ export default {
     font-size: 14px;
     color: #999;
     line-height: 25px;
+    display: flex;
+    justify-content: space-between;
   }
-  .user-info-list span {
-      margin-left: 70px;
+  .list-text {
+    text-align: left;
+    min-width: 150px;
   }
   .module {
     margin-top: 10px;

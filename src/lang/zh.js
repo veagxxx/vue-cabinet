@@ -20,11 +20,57 @@ export default {
     logout: '退出登录'
   },
   aside: {
-
+    index: '首页',
+    statistics: {
+      title: '业务统计',
+      chart: '数据图表',
+    },
+    userModular: {
+      title: '用户模块',
+      management: '用户管理',
+      add: '添加用户'
+    },
+    orderModular: {
+      title: '订单模块',
+      management: '订单管理',
+      setting: '订单设置'
+    },
+    productModular: {
+      title: '产品模块',
+      management: '产品管理',
+    },
+    settingModular: {
+      title: '系统设置',
+      base: '基础设置'
+    }
   },
   main: {
-    agent: '代办事项',
-    modular: '模块',
+    index: {
+      agent: '代办事项',
+      modular: '模块',
+      loginTime: '登录时间',
+      loginPosition: '登录地点',
+      loginDuration: '登录时长',
+    },
+    user: {
+      placeholder: '请输入搜索内容',
+    },
+    order: {
+      manualAdd: '手动添加',
+      orderNo: '订单号',
+      orderTime: '下单时间',
+      phoneNo: '手机号',
+      orderStatus: '订单状态',
+      orderCode: '取餐码',
+      payMode: '支付方式',
+      placeholder: '请输入内容'
+    },
+    product: {
+
+    },
+    setting: {
+      plan: '方案'
+    },
     edit: '编辑',
     delete: '删除',
     add: '添加',
@@ -32,14 +78,18 @@ export default {
     detail: '查看',
     reset: '重置',
     save: '保存',
-    used: '使用中',
+    using: '使用中',
+    use: '使用',
     export: '导出',
+    exportSelected: '导出选中',
+    exportCurrentPage: '导出当前页',
     import: '一键导入',
     download: '下载模板',
     select: '选择文件',
     confirm: '确  定',
     cancel: '取 消',
+    close: '关闭',
     expand: '展开搜索',
-    search: '查询搜索'
+    search: '查询搜索',
   }
 }

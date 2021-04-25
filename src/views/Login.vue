@@ -84,14 +84,14 @@ export default {
       animation: false,
       loginFormRules: {
         username: [
-          {required: true, message: '请输入用户名', trigger: 'blur'},
+          {required: true, message: this.$t('login.username'), trigger: 'blur'},
           {min: 3, max: 12, message: '用户名长度范围3~12', trigger: 'blur'}
         ],
         password: [
-          {required: true, message: '请输入密码', trigger: 'blur'},
+          {required: true, message: this.$t('login.password'), trigger: 'blur'},
         ],
         captcha: [
-          {required: true, message: '请输入验证码', trigger: 'blur'},
+          {required: true, message: this.$t('login.captcha'), trigger: 'blur'},
         ]
       }
     }
@@ -140,7 +140,8 @@ export default {
               this.$message({
                 type: 'error',
                 message: result.message
-              })
+              });
+              this.loading = false;
             }
           }).catch(error => {
             return error
@@ -203,6 +204,12 @@ export default {
     border: 1px solid gray;
     box-shadow: 0 0 3px inset;
     border-radius: 3px;
+  }
+  .language {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
   }
   .btn-group .login-btn {
     width: 100%;

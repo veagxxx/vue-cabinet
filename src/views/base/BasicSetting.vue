@@ -13,7 +13,7 @@
         <el-tab-pane 
         v-for="(item, index) in settings" 
         :key="item.id" 
-        :label="'方案' + parseInt(index + 1)" 
+        :label="$t('main.setting.plan') + ' ' + parseInt(index + 1)" 
         :name="item.id + ''">
           <el-form :data="item">
             <el-form-item label="侧边导航主题：">
@@ -56,13 +56,15 @@
                 <el-button type="text" @click="handleUpdate(item)">修改背景</el-button>
               </div>
             </el-form-item>
-            <el-button size="small" type="primary" @click="submitSetting(item)">保存</el-button>
+            <el-button size="small" type="primary" @click="submitSetting(item)">
+              {{$t('main.save')}}
+            </el-button>
             <el-button size="small" 
             :disabled="item.isUse === 1 ? true : false"
             :type="item.isUse === 1 ? 'info' : 'success'" 
             plain @click="useItem">
-              {{item.isUse === 1 ? '使用中' : '使用'}}</el-button>
-            <el-button size="small" type="danger">删除</el-button>
+              {{item.isUse === 1 ? $t('main.using') : $t('main.use')}}</el-button>
+            <el-button size="small" type="danger">{{$t('main.delete')}}</el-button>
           </el-form>
         </el-tab-pane>
       </el-tabs>
