@@ -41,9 +41,9 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="选择模式：" prop="cabinetMode.modeId">
+      <el-form-item label="选择模式：" prop="mode.modeId">
         <el-select
-        v-model="order.cabinetMode.modeId" 
+        v-model="order.mode.modeId" 
         clearable
         @change="handleModeChange"
         @clear="handleClearMode"
@@ -57,7 +57,7 @@
       </el-form-item>
       <el-form-item label="订单温度：" 
       prop="orderCurrentTemperature" 
-      v-show="order.cabinetMode.modeId != null">
+      v-show="order.mode.modeId != null">
           <el-input v-model="order.orderCurrentTemperature">
             <template slot="append">℃</template>
           </el-input>
@@ -82,7 +82,7 @@ export default {
         orderCabinetNumber: [
           { required: true, message: '请选择取餐柜柜号', trigger: ['blur', 'change'] }
         ],
-        'cabinetMode.modeId': [
+        'mode.modeId': [
           { required: true, message: '请选择存储模式', trigger: ['blur', 'change'] }
         ]
       }
@@ -95,7 +95,7 @@ export default {
     queryCabinets() {
       this.$http.get('/cabinet/cabinets')
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         this.cabinets = res.cabinets;
         this.modes = res.modes;
       }).catch((err) => {
@@ -105,10 +105,9 @@ export default {
     // 取餐柜地点变化
     handleSelectChange(value) {
       this.inSizeOrders = {};
-      this.cabinetId = value | 1;
+      this.cabinetId = value;
       this.$http.get('/cabinet/one/' + this.cabinetId)
       .then((result) => {
-        // console.log(result);
         this.inSizeOrders = result;
       }).catch((err) => {
         return err;
@@ -122,8 +121,9 @@ export default {
     handleClearCabinetNum() {
       this.order.orderCabinetNumber = null;
     },
+    // 
     handleCabinetNumChange(value) {
-      console.log(value);
+      // console.log(value);
     },
     // 判断取餐柜是否为空
     isNotEmpty(item) {

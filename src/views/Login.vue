@@ -8,55 +8,65 @@
     <transition :name="loginPageInfo.loginAnimation === 1 ? 'slide-fade' : ''" mode="out-in">
       <div class="login" v-if="animation">
         <el-card>
-          <div class="login-title">
-            <h3>{{$t('login.title')}}</h3>
-          </div>
-          <el-form class="loginForm" 
-          ref="loginFormRef" 
-          :model="loginForm" 
-          :rules="loginFormRules">
-            <el-form-item prop="username">
-              <el-input 
-              v-model="loginForm.username" 
-              clearable :placeholder="$t('login.username')" 
-              prefix-icon="el-icon-user">
-              </el-input>
-            </el-form-item>
-              <el-form-item prop="password" style="text-align: justify">
-              <el-input 
-              type="password" 
-              v-model="loginForm.password" 
-              clearable :placeholder="$t('login.password')"  
-              prefix-icon="el-icon-lock">
-              </el-input>
-            </el-form-item>
-            <el-form-item prop="captcha">
-              <div  class="captcha">
-                <el-input 
-                v-model="loginForm.captcha" 
-                clearable :placeholder="$t('login.captcha')" 
-                prefix-icon="el-icon-picture-outline"
-                @keydown.enter="login">
-                </el-input>
-                <el-tooltip effect="dark" :content="$t('login.captchaChange')" placement="top">
-                  <img :src="captchaUrl" alt="验证码" @click="changeCaptcha"/>
-                </el-tooltip>
+          <el-row class="login-content" :gutter="20">
+            <el-col :span="12" class="loginImg">
+              <el-image :src="require('../assets/loginImg.jpg')" fit="cover">
+              </el-image>
+            </el-col>
+            <el-col :span="12" class="loginForm">
+              <div class="form-content">
+                <div class="login-title">
+                  <h3>{{$t('login.title')}}</h3>
+                </div>
+                <el-form
+                ref="loginFormRef" 
+                :model="loginForm" 
+                :rules="loginFormRules">
+                  <el-form-item prop="username">
+                    <el-input 
+                    v-model="loginForm.username" 
+                    clearable :placeholder="$t('login.username')" 
+                    prefix-icon="el-icon-user">
+                    </el-input>
+                  </el-form-item>
+                    <el-form-item prop="password" style="text-align: justify">
+                    <el-input 
+                    type="password" 
+                    v-model="loginForm.password" 
+                    clearable :placeholder="$t('login.password')"  
+                    prefix-icon="el-icon-lock">
+                    </el-input>
+                  </el-form-item>
+                  <el-form-item prop="captcha">
+                    <div  class="captcha">
+                      <el-input 
+                      v-model="loginForm.captcha" 
+                      clearable :placeholder="$t('login.captcha')" 
+                      prefix-icon="el-icon-picture-outline"
+                      @keydown.enter.native="login">
+                      </el-input>
+                      <el-tooltip effect="dark" :content="$t('login.captchaChange')" placement="top">
+                        <img :src="captchaUrl" alt="验证码" @click="changeCaptcha"/>
+                      </el-tooltip>
+                    </div>
+                  </el-form-item>
+                  <el-form-item class="btn-group">
+                    <div class="language">
+                      <el-radio v-model="$i18n.locale" label="zh" @change="changeLanguage">中文</el-radio>
+                      <el-radio v-model="$i18n.locale" label="en" @change="changeLanguage">English</el-radio>
+                    </div>
+                    <el-button class="login-btn" type="success" @click="login">
+                      {{$t('login.login')}}
+                    </el-button>
+                    <div class="register-forget">
+                      <el-button type="text">{{$t('login.register')}}</el-button>
+                      <el-button type="text">{{$t('login.forget')}}</el-button>
+                    </div>
+                  </el-form-item>
+                </el-form>
               </div>
-            </el-form-item>
-            <el-form-item class="btn-group">
-              <div class="language">
-                <el-radio v-model="$i18n.locale" label="zh" @change="changeLanguage">中文</el-radio>
-                <el-radio v-model="$i18n.locale" label="en" @change="changeLanguage">English</el-radio>
-              </div>
-              <el-button class="login-btn" type="success" @click="login">
-                {{$t('login.login')}}
-              </el-button>
-              <div class="register-forget">
-                <el-button type="text">{{$t('login.register')}}</el-button>
-                <el-button type="text">{{$t('login.forget')}}</el-button>
-              </div>
-            </el-form-item>
-          </el-form>
+            </el-col>
+          </el-row>
         </el-card>
       </div>
     </transition>
@@ -175,24 +185,42 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  .login-title {
-    text-align: center;
-    color: brown;
-  }
-  /* .login .el-divider__text {
-    font-size: 20px;
-    color: brown;
-  } */
   .login .el-card {
     width: 100%;
     height: auto;
     display: flex;
-    background-color: unset;
+    /* background-color: unset; */
+  }
+  .login-content {
+    width: 800px;
+  }
+  .login-content .el-col {
+    height: 400px;
+  }
+  .login-content .loginImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .loginImg .el-image {
+    border-radius: 150px;
+    width: 300px; 
+    height: 300px
+  }
+  .login-title {
+    text-align: center;
+    color: brown;
   }
   .loginForm {
-    width: 500px;
-    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+  }
+  .loginForm .form-content {
+    width: 100%;
+    height: auto;
   }
   .captcha {
     display: flex;
@@ -211,8 +239,12 @@ export default {
     justify-content: center;
     margin-bottom: 10px;
   }
+  .btn-group {
+    margin-bottom: 10px;
+  }
   .btn-group .login-btn {
     width: 100%;
+    border-radius: 20px;
   }
   /** 去除按钮组的 label-width */
  .btn-group>>>.el-form-item__content {

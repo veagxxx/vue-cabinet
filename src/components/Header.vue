@@ -36,7 +36,7 @@
           <div class="avatar-name">
             <el-avatar :src="$store.state.user.avatar"></el-avatar>
             <span class="el-dropdown-link">
-              {{$t('header.loginName')}}<i class="el-icon-arrow-down el-icon--right"></i>
+              {{$store.state.user.username}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
           </div>
           <el-dropdown-menu slot="dropdown">
@@ -81,11 +81,7 @@ export default {
       this.$store.state.order = {};
       this.$store.state.cabinetInfo = {};
       this.$store.state.loginTime = '';
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('user');
-      sessionStorage.removeItem('order');
-      sessionStorage.removeItem('cabinetInfo');
-      sessionStorage.removeItem('loginTime');
+      sessionStorage.clear();
       this.$router.push("/login");
     },
     // 个人资料

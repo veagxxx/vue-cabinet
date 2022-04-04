@@ -79,7 +79,7 @@ export default {
         cabinet: {
           cabinetId: null
         },
-        cabinetMode: {
+        mode: {
           modeId: null
         }
       },

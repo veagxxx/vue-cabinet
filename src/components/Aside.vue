@@ -27,7 +27,7 @@
       </el-menu-item>
     </el-submenu>
     <!-- 用户模块 -->
-    <el-submenu index="3">
+    <el-submenu index="3" v-show="$store.state.user.isAdmin === 1">
       <template slot="title">
         <i class="el-icon-s-custom"></i>
         <span slot="title">{{$t('aside.userModular.title')}}</span>
@@ -38,7 +38,7 @@
           <span>{{$t('aside.userModular.management')}}</span>
         </template>
       </el-menu-item>
-      <el-menu-item index="/user-add">
+      <el-menu-item index="/user-add" v-show="$store.state.user.isAdmin === 1">
         <template>
           <i class="el-icon-circle-plus"></i>
           <span>{{$t('aside.userModular.add')}}</span>
@@ -46,7 +46,7 @@
       </el-menu-item>
     </el-submenu>
     <!-- 订单模块 -->
-    <el-submenu index="4">
+    <el-submenu index="4" v-show="$store.state.user.isAdmin === 1">
       <template slot="title">               
         <i class="el-icon-notebook-2"></i>
         <span slot="title">{{$t('aside.orderModular.title')}}</span>
@@ -65,7 +65,7 @@
       </el-menu-item>
     </el-submenu>
     <!-- 产品模块 -->
-    <el-submenu index="5">
+    <el-submenu index="5" v-show="$store.state.user.isAdmin === 1">
       <template slot="title">               
         <i class="el-icon-coin"></i>
         <span slot="title">{{$t('aside.productModular.title')}}</span>
@@ -78,7 +78,7 @@
       </el-menu-item>
     </el-submenu>
     <!-- 基础设置 -->
-    <el-submenu index="6">
+    <el-submenu index="6" v-show="$store.state.user.isAdmin === 1">
       <template slot="title">               
         <i class="el-icon-s-tools"></i>
         <span slot="title">{{$t('aside.settingModular.title')}}</span>

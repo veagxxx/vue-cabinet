@@ -97,10 +97,10 @@
               </el-tag>
             </template>
           </el-table-column>
-            <el-table-column align="center" label="模式" prop="cabinetMode.modeName">
+            <el-table-column align="center" label="模式" prop="mode.modeName">
               <template slot-scope="scope">
-                <el-tag :type="scope.row.cabinetMode.modeName === '正常模式' ? 'info' : (scope.row.cabinetMode.modeName === '制热' ? 'danger' : 'primary')">
-                  {{scope.row.cabinetMode.modeName}}
+                <el-tag :type="scope.row.mode.modeName === '正常模式' ? 'info' : (scope.row.mode.modeName === '制热' ? 'danger' : 'primary')">
+                  {{scope.row.mode.modeName}}
                 </el-tag>
               </template>
             </el-table-column>
@@ -120,7 +120,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <span><i class="el-icon-price-tag"></i>费用信息</span>
+        <!-- <span><i class="el-icon-price-tag"></i>费用信息</span>
         <el-table :data="[]"
         class="price-table"
         :header-cell-style="{background:'#eef1f6',color:'#606266'}"
@@ -129,7 +129,7 @@
           <el-table-column align="center" label="活动优惠"></el-table-column>
           <el-table-column align="center" label="积分抵扣"></el-table-column>
           <el-table-column align="center" label="实际应付"></el-table-column>
-        </el-table>
+        </el-table> -->
         <span><i class="el-icon-collection-tag"></i>操作信息</span>
         <el-table :data="operationData"
         class="operate-table"
@@ -208,13 +208,6 @@ export default {
        // 获取分钟
       this.countDownMin = parseInt((pickTime - startTime) / (1000 * 60) <= 0 ? 0 : (pickTime - startTime) / (1000 * 60));
       console.log(this.countDownMin);
-      // if (this.countDownMin === 15) {
-      //   this.$http.get('/order/remind/' + orderId).then((result) => {
-          
-      //   }).catch((err) => {
-          
-      //   });
-      // }
     },
     // 订单状态
     calcOrderStatus: function(value) {
@@ -290,7 +283,8 @@ export default {
     finishOrder() {
       let orderData = {
         orderId: this.orderDetailData[0].orderId,
-        orderStatus: 3
+        orderStatus: 3,
+        orderFinishTime: Date.now()
       };
       let operateData = {
         operateMan: '管理员',

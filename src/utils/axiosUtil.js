@@ -8,6 +8,7 @@ axios.defaults.timeout = 3000;
 axios.interceptors.request.use(config => {
     if (sessionStorage.getItem('token')) {
       config.headers.token = sessionStorage.getItem('token');
+      // console.log(config);
     }
     return config;
   }, error => {
@@ -28,7 +29,7 @@ axios.interceptors.response.use(response => {
     switch(error.response.status) {
       // 401 未登录
       case 401:
-        Message.error({message: '未登录，请登录'});
+        Message.warning({message: '未登录，请登录'});
         router.replace({
           path: '/login',
           query: { redirect: router.currentRoute.fullPath }

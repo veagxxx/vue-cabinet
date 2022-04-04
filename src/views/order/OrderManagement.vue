@@ -70,10 +70,10 @@
             {{scope.row.orderPickTime | TimeFormat}}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="模式" prop="cabinetMode.modeName">
+        <el-table-column align="center" label="模式" prop="mode.modeName">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.cabinetMode.modeName === '正常模式' ? 'info' : (scope.row.cabinetMode.modeName === '制热' ? 'danger' : 'primary')">
-              {{scope.row.cabinetMode.modeName}}
+            <el-tag :type="scope.row.mode.modeName === '正常模式' ? 'info' : (scope.row.mode.modeName === '制热' ? 'danger' : 'primary')">
+              {{scope.row.mode.modeName}}
             </el-tag>
           </template>
         </el-table-column>

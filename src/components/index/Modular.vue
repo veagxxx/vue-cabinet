@@ -1,12 +1,12 @@
 <template>
   <div class="modular">
-    <div class="grid-content statistics">
+    <div class="grid-content statistics" @click="testMut">
       <div class="detail">
-        <i class="el-icon-s-data"></i>
+        <i class="el-icon-s-data" ></i>
         <div>业务统计</div>
       </div>
     </div>
-    <div class="grid-content user">
+    <div class="grid-content user" @click="testAct">
       <div class="detail">
         <i class="el-icon-s-custom"></i>
         <div>用户模块</div>
@@ -34,8 +34,27 @@
 </template>
 
 <script>
+import { mapMutations, mapActions } from 'vuex';
 export default {
-
+  data() {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    // 映射为 `this.$store.commit('testMutation')`
+    ...mapMutations(['testMutation']),
+    ...mapActions(['testMapAction']),
+    testMut() {
+      // 提交到 mutation 中的 testMutation
+      this.testMutation('hello world')
+    },
+    testAct() {
+      // 先分发到 actions 的 testAction 方法
+      this.$store.dispatch('testAction', this.count);
+      this.testMapAction('Hello mapActions');
+    }
+  }
 }
 </script>
 

@@ -20,7 +20,7 @@
             :page-size="queryInfo.pageSize"
             :pager-count="5"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="totalFlag===false?total:userList.length">
+            :total="total">
           </el-pagination>
         </el-col>
         <el-col :span="8" class="search">

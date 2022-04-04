@@ -65,7 +65,7 @@ export default {
     getMode(item) {
       for (let index = 0; index < this.cabinetWithOrder.orders.length; index++) {
         if (item === this.cabinetWithOrder.orders[index].orderCabinetNumber) {
-          return this.cabinetWithOrder.orders[index].cabinetMode.modeName;
+          return this.cabinetWithOrder.orders[index].mode.modeName;
         }
       }
     }

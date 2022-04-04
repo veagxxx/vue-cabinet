@@ -39,9 +39,26 @@ export default new Vuex.Store({
     setOrderCount(state, value) {
       // console.log(value);
       state.ordersCount = value;
+    },
+    testMutation(state, value) {
+      console.log(value);
+    },
+    getTestAction(state, value) {
+      console.log("获取到了 testAction 提交的：" +value);
+    },
+    getTestMapAction(state, value) {
+      console.log("获取到了 testMapAction 提交的：" + value);
     }
   },
   actions: {
+    testAction(context, value) {
+      // console.log(value);
+      context.commit('getTestAction', value); // 通过 actions 提交到 mutation 方法中
+    },
+    testMapAction(context, value) {
+      console.log("获取到了组件中分发的 Action: " + value);
+      context.commit('getTestMapAction', value);
+    }
   },
   modules: {
   }
